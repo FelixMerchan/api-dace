@@ -1,0 +1,26 @@
+const { Router } = require ('express');
+const router = Router();
+
+const { getCiudades,  createCiudades, getCiudadesByID, getCiudadesByCity, updateCiudades, deleteCiudades } = require('../controllers/ciudades.controller');
+
+const { getAgencias, getAgenciasByID, getAgenciasByCity, createAgencias, updateAgencias, deleteAgencias } = require('../controllers/agencias.controller');
+
+const  authMiddleware  = require('../authMiddleware');
+
+//rutas de endpoint para ciudades
+router.get('/ciudades', getCiudades);
+router.get('/ciudades/:id', getCiudadesByID);
+router.get('/ciudadesByCity/:id', getCiudadesByCity);
+router.post('/ciudades', createCiudades);
+router.put('/ciudades', updateCiudades);
+router.delete('/ciudades/:id', deleteCiudades);
+
+//rutas de endpoint para agencias
+router.get('/agencias', getAgencias);
+router.get('/agencias/:id', getAgenciasByID);
+router.get('/agenciasByCity/:id', getAgenciasByCity);
+router.post('/agencias', createAgencias);
+router.put('/agencias', updateAgencias);
+router.delete('/agencias/:id', deleteAgencias);
+
+module.exports = router;
