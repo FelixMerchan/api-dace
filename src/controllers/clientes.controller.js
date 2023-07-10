@@ -15,3 +15,7 @@ const getClientes = async(req, res) => {
 const getClientesByID = async(req, res) => {
 
 }
+
+const getClientesByCedula  = async(req, res) => {
+    
+}
