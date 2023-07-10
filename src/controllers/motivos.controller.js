@@ -40,7 +40,7 @@ const getMotivosByID = async(req, res) => {
 };
 
 //endpoint para devolver los motivos por categoria
-const getMotivosByCity = async(req, res) => {
+const getMotivosByCategoria = async(req, res) => {
     const busqueda = req.params.id;
 
     const query = `select id_motivo, categoria_moti, descripcion_moti from motivos where (categoria_moti ilike '%${busqueda}%')`;
@@ -119,7 +119,7 @@ const deleteMotivos = async(req, res) => {
 module.exports = {
     getMotivos,
     getMotivosByID,
-    getMotivosByCity,
+    getMotivosByCategoria,
     createMotivos,
     updateMotivos,
     deleteMotivos
