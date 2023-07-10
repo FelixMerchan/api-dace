@@ -17,6 +17,6 @@ const getClientesByID = async(req, res) => {
 }
 
 const getClientesByCedula  = async(req, res) => {
-    console.log("object");    
+    console.log("Clientes");    
     
 }
