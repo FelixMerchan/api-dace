@@ -7,3 +7,11 @@ const pool = new Pool({
     database: 'callcenter',
     port: '5432'
 });
+
+const getClientes = async(req, res) => {
+
+}
+
+const getClientesByID = async(req, res) => {
+
+}
