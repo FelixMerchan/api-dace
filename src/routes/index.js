@@ -7,6 +7,10 @@ const { getAgencias, getAgenciasByID, getAgenciasByCity, createAgencias, updateA
 
 const { getInteracciones, getInteraccionesByID, getInteraccionesByUser, getInteraccionesByAgencia, getInteraccionesByCanal, getInteraccionesByTema, createInteracciones, updateInteracciones, deleteInteracciones } = require('../controllers/interacciones.controller');
 
+const { getTemas, getTemasByID, createTemas, updateTemas, deleteTemas }=require('../controllers/temas.controller');
+
+const { getCanales, getCanalByID, createCanal, updateCanal, deleteCanal }=require('../controllers/canal.controller');
+
 const  authMiddleware  = require('../authMiddleware');
 
 //rutas de endpoint para ciudades
@@ -35,5 +39,20 @@ router.get('/interaccionesByTema/:id', getInteraccionesByTema);
 router.post('/interacciones', createInteracciones);
 router.put('/interacciones', updateInteracciones);
 router.delete('/interacciones/:id', deleteInteracciones);
+
+//rutas de enpoint para temas
+router.get('/temas',getTemas);
+router.get('/temas/:id', getTemasByID);
+router.post('/temas', createTemas);
+router.put('/temas', updateTemas);
+router.delete('/temas/:id', deleteTemas);
+
+
+//rutas de enpoint para canales
+router.get('/canales',getCanales);
+router.get('/canal/:id', getCanalByID);
+router.post('/canales', createCanal);
+router.put('/canales', updateCanal);
+router.delete('/canales/:id', deleteCanal);
 
 module.exports = router;
