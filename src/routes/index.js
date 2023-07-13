@@ -1,17 +1,22 @@
-const { Router } = require ('express');
+const { Router } = require('express');
 const router = Router();
 
-const { getCiudades,  createCiudades, getCiudadesByID, getCiudadesByCity, updateCiudades, deleteCiudades } = require('../controllers/ciudades.controller');
+const { getCiudades, createCiudades, getCiudadesByID, getCiudadesByCity, updateCiudades, deleteCiudades } = require('../controllers/ciudades.controller');
 
 const { getAgencias, getAgenciasByID, getAgenciasByCity, createAgencias, updateAgencias, deleteAgencias } = require('../controllers/agencias.controller');
 
 const { getInteracciones, getInteraccionesByID, getInteraccionesByUser, getInteraccionesByAgencia, getInteraccionesByCanal, getInteraccionesByTema, createInteracciones, updateInteracciones, deleteInteracciones } = require('../controllers/interacciones.controller');
 
-const { getTemas, getTemasByID, createTemas, updateTemas, deleteTemas }=require('../controllers/temas.controller');
+const { getTemas, getTemasByID, createTemas, updateTemas, deleteTemas } = require('../controllers/temas.controller');
 
-const { getCanales, getCanalByID, createCanal, updateCanal, deleteCanal }=require('../controllers/canal.controller');
+const { getCanales, getCanalByID, createCanal, updateCanal, deleteCanal } = require('../controllers/canal.controller');
 
-const  authMiddleware  = require('../authMiddleware');
+const { getMotivos, getMotivosByID, getMotivosByCategoria, createMotivos, updateMotivos, deleteMotivos } = require('../controllers/motivos.controller');
+
+const { getUsuarios, getUsuariosByID, getUsuariosByCed, createUsuarios, updateUsuarios, deleteUsuarios } = require('../controllers/usuarios.controller');
+
+
+const authMiddleware = require('../authMiddleware');
 
 //rutas de endpoint para ciudades
 router.get('/ciudades', getCiudades);
@@ -41,7 +46,7 @@ router.put('/interacciones', updateInteracciones);
 router.delete('/interacciones/:id', deleteInteracciones);
 
 //rutas de enpoint para temas
-router.get('/temas',getTemas);
+router.get('/temas', getTemas);
 router.get('/temas/:id', getTemasByID);
 router.post('/temas', createTemas);
 router.put('/temas', updateTemas);
@@ -49,10 +54,26 @@ router.delete('/temas/:id', deleteTemas);
 
 
 //rutas de enpoint para canales
-router.get('/canales',getCanales);
+router.get('/canales', getCanales);
 router.get('/canal/:id', getCanalByID);
 router.post('/canales', createCanal);
 router.put('/canales', updateCanal);
 router.delete('/canales/:id', deleteCanal);
+
+//rutas de endpoint para motivo
+router.get('/motivos', getMotivos);
+router.get('/motivos/:id', getMotivosByID);
+router.get('/motivosByCategoria/:id', getMotivosByCategoria);
+router.post('/motivos', createMotivos);
+router.put('/motivos', updateMotivos);
+router.delete('/motivos/:id', deleteMotivos);
+
+//rutas de endpoint para usuarios
+router.get('/usuarios', getUsuarios);
+router.get('/usuarios/:id', getUsuariosByID);
+router.get('/usuariosByCed/:id', getUsuariosByCed);
+router.post('/usuarios', createUsuarios);
+router.put('/usuarios', updateUsuarios);
+router.delete('/usuarios/:id', deleteUsuarios);
 
 module.exports = router;
