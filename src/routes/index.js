@@ -1,3 +1,4 @@
+
 const { Router } = require('express');
 const router = Router();
 
@@ -15,6 +16,7 @@ const { getMotivos, getMotivosByID, getMotivosByCategoria, createMotivos, update
 
 const { getUsuarios, getUsuariosByID, getUsuariosByCed, createUsuarios, updateUsuarios, deleteUsuarios } = require('../controllers/usuarios.controller');
 
+const { getClientes, getClientesByID, getClientesByCedula, createClientes, updateClientes, deleteClientes } = require('../controllers/clientes.controller');
 
 const authMiddleware = require('../authMiddleware');
 
@@ -75,5 +77,13 @@ router.get('/usuariosByCed/:id', getUsuariosByCed);
 router.post('/usuarios', createUsuarios);
 router.put('/usuarios', updateUsuarios);
 router.delete('/usuarios/:id', deleteUsuarios);
+
+// rutas de endpoint para clientes
+router.get('/clientes', getClientes);
+router.get('/clientes/:id', authMiddleware, getClientesByID);
+router.get('/clientes/cedula/:cedula', authMiddleware, getClientesByCedula);
+router.post('/clientes', authMiddleware, createClientes);
+router.put('/clientes/:id', authMiddleware, updateClientes);
+router.delete('/clientes/:id', authMiddleware, deleteClientes);
 
 module.exports = router;

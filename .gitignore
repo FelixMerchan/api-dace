@@ -1,3 +1,7 @@
 /node_modules
 
+
+# Configuracion de Visual Studio Code
+.vscode/
+
 #/.env
