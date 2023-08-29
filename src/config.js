@@ -1,5 +1,5 @@
 // config.js
 module.exports = {
-    secretKey: 'tu_clave_secreta',
+    secretKey: 'S2xtc0AxOTA2QEVmbXo=',
   };
   

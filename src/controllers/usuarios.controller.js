@@ -1,4 +1,6 @@
 const { Pool } = require('pg');
+const bcrypt = require('bcryptjs');
+const { generarJWT } = require('../helpers/jwt');
 
 const pool = new Pool({
     host: '35.239.172.154',
@@ -60,18 +62,40 @@ const getUsuariosByCed = async(req, res) => {
 
 //endpoint para crear un usuario
 const createUsuarios = async(req, res) => {
-    const { cedula_usua, nombre_usua, email_usua, user_usua, password_usua } = req.body;
+    let { cedula_usua, nombre_usua, email_usua, user_usua, password_usua } = req.body;
 
-    const query = 'INSERT INTO usuarios (cedula_usu, nombre_usu, email_usu, user, password) VALUES ($1, $2,$3,$4,$5)';
+    const { rows } = await pool.query('select id_usuario, cedula_usu, nombre_usu, email_usu, user, password from usuarios');
+    const existeUserName = rows.find(element => element.user === user_usua);
+
+    if( existeUserName){
+        return res.status(400).json({
+            success: false,
+            message: 'El nombre de usuario ya está registrado'
+        });
+    }
+
+    // ENCRIPTAR CONTRASEÑA
+    let salt = bcrypt.genSaltSync();
+    password_usua = bcrypt.hashSync(password_usua, salt);
+
+    const query = 'INSERT INTO usuarios (cedula_usu, nombre_usu, email_usu, "user", password) VALUES ($1, $2,$3,$4,$5) RETURNING *';
     const values = [cedula_usua, nombre_usua, email_usua, user_usua, password_usua];
 
-    pool.query(query, values, (err) => {
+    pool.query(query, values, async (err, result) => {
         if (err) {
             console.error(err);
             res.status(500).json({ error: 'Error al insertar' });
         } else {
+            // obtengo los datos del usuario creado
+            const usuario = result.rows[0];
+
+            // genero un token de acuerdo al id del usuario
+            const token = await generarJWT(usuario.id_usuario);
+            
             res.json({
-                message: 'usuario added'
+                message: 'usuario added',
+                usuario,
+                token
             });
         }
     });

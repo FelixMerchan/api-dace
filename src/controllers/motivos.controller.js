@@ -23,7 +23,7 @@ const getMotivos = async(req, res) => {
 const getMotivosByID = async(req, res) => {
     const { id } = req.params;
 
-    const query = `select id_motivo, categoria_moti, descripcion_moti from motivos`;
+    const query = `select id_motivo, categoria_moti, descripcion_moti from motivos WHERE id_motivo=$1;`;
     const values = [id];
 
     pool.query(query, values, (err, result) => {
@@ -60,10 +60,10 @@ const getMotivosByCategoria = async(req, res) => {
 
 //endpoint para crear un motivo
 const createMotivos = async(req, res) => {
-    const { categoria_mot, descripcion_mot } = req.body;
+    const { categoria_moti, descripcion_moti } = req.body;
 
     const query = 'INSERT INTO motivos (categoria_moti, descripcion_moti) VALUES ($1, $2)';
-    const values = [categoria_mot, descripcion_mot];
+    const values = [categoria_moti, descripcion_moti];
 
     pool.query(query, values, (err) => {
         if (err) {

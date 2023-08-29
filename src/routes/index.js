@@ -18,72 +18,77 @@ const { getUsuarios, getUsuariosByID, getUsuariosByCed, createUsuarios, updateUs
 
 const { getClientes, getClientesByID, getClientesByCedula, createClientes, updateClientes, deleteClientes } = require('../controllers/clientes.controller');
 
+const { login, renewToken } = require('../controllers/auth.controller');
+
 const authMiddleware = require('../authMiddleware');
 
 //rutas de endpoint para ciudades
-router.get('/ciudades', getCiudades);
-router.get('/ciudades/:id', getCiudadesByID);
-router.get('/ciudadesByCity/:id', getCiudadesByCity);
-router.post('/ciudades', createCiudades);
-router.put('/ciudades', updateCiudades);
-router.delete('/ciudades/:id', deleteCiudades);
+router.get('/ciudades', authMiddleware, getCiudades);
+router.get('/ciudades/:id', authMiddleware, getCiudadesByID);
+router.get('/ciudadesByCity/:id', authMiddleware, getCiudadesByCity);
+router.post('/ciudades', authMiddleware, createCiudades);
+router.put('/ciudades', authMiddleware, updateCiudades);
+router.delete('/ciudades/:id', authMiddleware, deleteCiudades);
 
 //rutas de endpoint para agencias
-router.get('/agencias', getAgencias);
-router.get('/agencias/:id', getAgenciasByID);
-router.get('/agenciasByCity/:id', getAgenciasByCity);
-router.post('/agencias', createAgencias);
-router.put('/agencias', updateAgencias);
-router.delete('/agencias/:id', deleteAgencias);
+router.get('/agencias', authMiddleware, getAgencias);
+router.get('/agencias/:id', authMiddleware, getAgenciasByID);
+router.get('/agenciasByCity/:id', authMiddleware, getAgenciasByCity);
+router.post('/agencias', authMiddleware, createAgencias);
+router.put('/agencias', authMiddleware, updateAgencias);
+router.delete('/agencias/:id', authMiddleware, deleteAgencias);
 
 //rutas de endpoint para interacciones
-router.get('/interacciones', getInteracciones);
-router.get('/interacciones/:id', getInteraccionesByID);
-router.get('/interaccionesByUser/:id', getInteraccionesByUser);
-router.get('/interaccionesByAgencia/:id', getInteraccionesByAgencia);
-router.get('/interaccionesByCanal/:id', getInteraccionesByCanal);
-router.get('/interaccionesByTema/:id', getInteraccionesByTema);
-router.post('/interacciones', createInteracciones);
-router.put('/interacciones', updateInteracciones);
-router.delete('/interacciones/:id', deleteInteracciones);
+router.get('/interacciones', authMiddleware, getInteracciones);
+router.get('/interacciones/:id', authMiddleware, getInteraccionesByID);
+router.get('/interaccionesByUser/:id', authMiddleware, getInteraccionesByUser);
+router.get('/interaccionesByAgencia/:id', authMiddleware, getInteraccionesByAgencia);
+router.get('/interaccionesByCanal/:id', authMiddleware, getInteraccionesByCanal);
+router.get('/interaccionesByTema/:id', authMiddleware, getInteraccionesByTema);
+router.post('/interacciones', authMiddleware, createInteracciones);
+router.put('/interacciones', authMiddleware, updateInteracciones);
+router.delete('/interacciones/:id', authMiddleware, deleteInteracciones);
 
 //rutas de enpoint para temas
-router.get('/temas', getTemas);
-router.get('/temas/:id', getTemasByID);
-router.post('/temas', createTemas);
-router.put('/temas', updateTemas);
-router.delete('/temas/:id', deleteTemas);
+router.get('/temas', authMiddleware, getTemas);
+router.get('/temas/:id', authMiddleware, getTemasByID);
+router.post('/temas', authMiddleware, createTemas);
+router.put('/temas', authMiddleware, updateTemas);
+router.delete('/temas/:id', authMiddleware, deleteTemas);
 
 
 //rutas de enpoint para canales
-router.get('/canales', getCanales);
-router.get('/canal/:id', getCanalByID);
-router.post('/canales', createCanal);
-router.put('/canales', updateCanal);
-router.delete('/canales/:id', deleteCanal);
+router.get('/canales', authMiddleware, getCanales);
+router.get('/canales/:id', authMiddleware, getCanalByID);
+router.post('/canales', authMiddleware, createCanal);
+router.put('/canales', authMiddleware, updateCanal);
+router.delete('/canales/:id', authMiddleware, deleteCanal);
 
 //rutas de endpoint para motivo
-router.get('/motivos', getMotivos);
-router.get('/motivos/:id', getMotivosByID);
-router.get('/motivosByCategoria/:id', getMotivosByCategoria);
-router.post('/motivos', createMotivos);
-router.put('/motivos', updateMotivos);
-router.delete('/motivos/:id', deleteMotivos);
+router.get('/motivos', authMiddleware, getMotivos);
+router.get('/motivos/:id', authMiddleware, getMotivosByID);
+router.get('/motivosByCategoria/:id', authMiddleware, getMotivosByCategoria);
+router.post('/motivos', authMiddleware, createMotivos);
+router.put('/motivos', authMiddleware, updateMotivos);
+router.delete('/motivos/:id', authMiddleware, deleteMotivos);
 
 //rutas de endpoint para usuarios
-router.get('/usuarios', getUsuarios);
-router.get('/usuarios/:id', getUsuariosByID);
-router.get('/usuariosByCed/:id', getUsuariosByCed);
-router.post('/usuarios', createUsuarios);
-router.put('/usuarios', updateUsuarios);
-router.delete('/usuarios/:id', deleteUsuarios);
+router.get('/usuarios', authMiddleware, getUsuarios);
+router.get('/usuarios/:id', authMiddleware, getUsuariosByID);
+router.get('/usuariosByCed/:id', authMiddleware, getUsuariosByCed);
+router.post('/usuarios', authMiddleware, createUsuarios);
+router.put('/usuarios', authMiddleware, updateUsuarios);
+router.delete('/usuarios/:id', authMiddleware, deleteUsuarios);
 
 // rutas de endpoint para clientes
-router.get('/clientes', getClientes);
+router.get('/clientes', authMiddleware, getClientes);
 router.get('/clientes/:id', authMiddleware, getClientesByID);
 router.get('/clientes/cedula/:cedula', authMiddleware, getClientesByCedula);
 router.post('/clientes', authMiddleware, createClientes);
-router.put('/clientes/:id', authMiddleware, updateClientes);
+router.put('/clientes', authMiddleware, updateClientes);
 router.delete('/clientes/:id', authMiddleware, deleteClientes);
+
+router.post('/login', login);
+router.get('/renew', authMiddleware, renewToken);
 
 module.exports = router;

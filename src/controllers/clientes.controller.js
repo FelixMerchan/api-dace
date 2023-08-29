@@ -77,7 +77,6 @@ const createClientes = async(req, res) => {
 
 const updateClientes = async(req, res) => {
     const { ...campos } = req.body;
-    const { id } = req.params;
 
     const query = `UPDATE clientes SET cedula_cli = $1, nombre_cli = $2, apellido_cli = $3, 
         telefono_cli = $4, socio_cli = $5, nacimiento_cli = $6, id_ciudad = $7, nick_redes = $8 WHERE id_cliente = $9`;
@@ -90,7 +89,7 @@ const updateClientes = async(req, res) => {
         campos.nacimiento_cli,
         campos.id_ciudad,
         campos.nick_redes,
-        id
+        campos.id_cliente
     ];
 
     pool.query(query, values, (err) => {
