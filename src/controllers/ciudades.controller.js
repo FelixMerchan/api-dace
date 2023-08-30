@@ -40,7 +40,7 @@ const getCiudadesByID = async(req, res) => {
 
 //endpoint para devolver las ciudades por nombre o por provincia
 const getCiudadesByCity = async(req, res) => {
-    const busqueda = req.params.id;
+    const busqueda = req.params.name;
 
     const query = `select * from ciudades where nombre_ciu ilike '%${busqueda}%' or provincia ilike '%${busqueda}%'`;
 

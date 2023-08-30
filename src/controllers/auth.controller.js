@@ -11,8 +11,6 @@ const login = async(req, res = response) => {
     const { rows } = await pool.query("SELECT * FROM usuarios;");
     const existeUsuario = rows.find( e => e.user === username );
 
-    console.log("Encontrado: ", existeUsuario );
-
     if (!existeUsuario ) {
       return res.status(404).json({
         success: false,
@@ -28,8 +26,6 @@ const login = async(req, res = response) => {
         message: 'Credenciales invidalidas'
       });
     }
-
-    console.log( existeUsuario.id_usuario);
 
     // GENERAMOS EL TOKEN - JWT
     const token = await generarJWT( existeUsuario.id_usuario );
@@ -50,6 +46,18 @@ const login = async(req, res = response) => {
 };
 
 const renewToken = async(req, res=response) => {
+  const { uid } = req.user;
+
+  // Generar el TOKEN - JWT
+  const token = await generarJWT( uid );
+
+  // Obtener el usuario por UID
+  //const usuario = await getUserById( uid );
+
+  res.json ({
+      success: true,
+      token,
+  });
 
 };
 

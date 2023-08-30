@@ -1,8 +1,5 @@
-
 const { Router } = require('express');
 const router = Router();
-
-const { getCiudades, createCiudades, getCiudadesByID, getCiudadesByCity, updateCiudades, deleteCiudades } = require('../controllers/ciudades.controller');
 
 const { getAgencias, getAgenciasByID, getAgenciasByCity, createAgencias, updateAgencias, deleteAgencias } = require('../controllers/agencias.controller');
 
@@ -18,17 +15,10 @@ const { getUsuarios, getUsuariosByID, getUsuariosByCed, createUsuarios, updateUs
 
 const { getClientes, getClientesByID, getClientesByCedula, createClientes, updateClientes, deleteClientes } = require('../controllers/clientes.controller');
 
-const { login, renewToken } = require('../controllers/auth.controller');
-
 const authMiddleware = require('../authMiddleware');
 
-//rutas de endpoint para ciudades
-router.get('/ciudades', authMiddleware, getCiudades);
-router.get('/ciudades/:id', authMiddleware, getCiudadesByID);
-router.get('/ciudadesByCity/:id', authMiddleware, getCiudadesByCity);
-router.post('/ciudades', authMiddleware, createCiudades);
-router.put('/ciudades', authMiddleware, updateCiudades);
-router.delete('/ciudades/:id', authMiddleware, deleteCiudades);
+// requerimos los endpoint que se encuentran en ciudades.routes
+router.use(require('./ciudades.routes'));
 
 //rutas de endpoint para agencias
 router.get('/agencias', authMiddleware, getAgencias);
@@ -56,7 +46,6 @@ router.post('/temas', authMiddleware, createTemas);
 router.put('/temas', authMiddleware, updateTemas);
 router.delete('/temas/:id', authMiddleware, deleteTemas);
 
-
 //rutas de enpoint para canales
 router.get('/canales', authMiddleware, getCanales);
 router.get('/canales/:id', authMiddleware, getCanalByID);
@@ -76,7 +65,7 @@ router.delete('/motivos/:id', authMiddleware, deleteMotivos);
 router.get('/usuarios', authMiddleware, getUsuarios);
 router.get('/usuarios/:id', authMiddleware, getUsuariosByID);
 router.get('/usuariosByCed/:id', authMiddleware, getUsuariosByCed);
-router.post('/usuarios', authMiddleware, createUsuarios);
+router.post('/usuarios', createUsuarios);
 router.put('/usuarios', authMiddleware, updateUsuarios);
 router.delete('/usuarios/:id', authMiddleware, deleteUsuarios);
 
@@ -88,7 +77,6 @@ router.post('/clientes', authMiddleware, createClientes);
 router.put('/clientes', authMiddleware, updateClientes);
 router.delete('/clientes/:id', authMiddleware, deleteClientes);
 
-router.post('/login', login);
-router.get('/renew', authMiddleware, renewToken);
+router.use(require('./auth.routes'));
 
 module.exports = router;
