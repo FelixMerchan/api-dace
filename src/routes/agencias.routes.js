@@ -16,7 +16,7 @@ const { getAgencias,getAgenciasByID,getAgenciasByCity,createAgencias,updateAgenc
  *          type: integer
  *          description: id de la agencia
  *        nombre_age:
- *          type: String
+ *          type: string
  *          description: nombre de la agencia
  *        telefono_age:
  *          type: string
