@@ -1,12 +1,4 @@
-const { Pool } = require('pg');
-
-const pool = new Pool({
-    host: '35.239.172.154',
-    user: 'rootdace',
-    password: 'dace1234',
-    database: 'callcenter',
-    port: '5432'
-});
+const pool = require('../database/db');
 
 //endpoint para devolver todas las Interacciones
 const getInteracciones = async(req, res) => {
@@ -80,76 +72,106 @@ const getInteraccionesByID = async(req, res) => {
 };
 
 //endpoint para devolver las interacciones por nombre de usuario o por cedula de usuario
-const getInteraccionesByUser = async(req, res) => {
-    const busqueda = req.params.id;
-
-    const query = `select id_interaccion, fecha, cant_mensaje, nombre_graba, observacion, duracion_llamada, nombre_usu, nombre_age, nombre_can, nombre_tema from interacciones, usuarios, agencias, canal, temas where (cedula_usu ilike '%${busqueda}%' or nombre_usu ilike '%${busqueda}%') and interacciones.id_usuario = usuarios.id_usuario`;
-
-    pool.query(query,  (err, result)=>{
-        if (err) {
-            console.error(err);
-            res.status(500).json({ error: 'Error al buscar' });
-        } if (result.rows.length === 0) {
-            res.status(404).json({ error: 'Registro no encontrado' });
-        } else {
-            res.json(result.rows);
+const getInteraccionesByUser = async (req, res) => {
+    try {
+      const busqueda = req.params.user;
+  
+      const query = `
+        SELECT id_interaccion, fecha, cant_mensaje, nombre_graba, observacion, duracion_llamada, nombre_usu, nombre_age, nombre_can, nombre_tema 
+        FROM interacciones, usuarios, agencias, canal, temas 
+        WHERE (cedula_usu ilike '%${busqueda}%' OR nombre_usu ilike '%${busqueda}%') 
+        AND interacciones.id_usuario = usuarios.id_usuario`;
+  
+        const result = await pool.query(query);
+        if (result.rows.length === 0) {
+            return res.status(404).json({ 
+                error: 'Registro no encontrado' 
+            });
         }
-    });  
-};
+        else {
+          return res.status(200).json(result.rows);
+            
+        }
+      
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Error al buscar' });
+    }
+  };
+
+
 
 
 //endpoint para devolver las interacciones por nombre de agencia
 const getInteraccionesByAgencia = async(req, res) => {
-    const busqueda = req.params.id;
+    try {
+    const busqueda = req.params.agen;
 
     const query = `select id_interaccion, fecha, cant_mensaje, nombre_graba, observacion, duracion_llamada, nombre_usu, nombre_age, nombre_can, nombre_tema from interacciones, usuarios, agencias, canal, temas where (nombre_age ilike '%${busqueda}%') and interacciones.id_agencia = agencias.id_agencia`;
 
-    pool.query(query,  (err, result)=>{
-        if (err) {
-            console.error(err);
-            res.status(500).json({ error: 'Error al buscar' });
-        } if (result.rows.length === 0) {
-            res.status(404).json({ error: 'Registro no encontrado' });
-        } else {
-            res.json(result.rows);
+  
+        const result = await pool.query(query);
+        if (result.rows.length === 0) {
+            return res.status(404).json({ 
+                error: 'Registro no encontrado' 
+            });
         }
-    });  
+        else {
+          return res.status(200).json(result.rows);
+            
+        }
+      
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Error al buscar' });
+    }
 };
 
 //endpoint para devolver las interacciones por nombre de canal
 const getInteraccionesByCanal = async(req, res) => {
-    const busqueda = req.params.id;
+    try {
+    const busqueda = req.params.can;
     
     const query = `select id_interaccion, fecha, cant_mensaje, nombre_graba, observacion, duracion_llamada, nombre_usu, nombre_age, nombre_can, nombre_tema from interacciones, usuarios, agencias, canal, temas where (nombre_can ilike '%${busqueda}%') and interacciones.id_canal = canal.id_canal`;
 
-    pool.query(query,  (err, result)=>{
-        if (err) {
-            console.error(err);
-            res.status(500).json({ error: 'Error al buscar' });
-        } if (result.rows.length === 0) {
-            res.status(404).json({ error: 'Registro no encontrado' });
-        } else {
-            res.json(result.rows);
+    const result = await pool.query(query);
+        if (result.rows.length === 0) {
+            return res.status(404).json({ 
+                error: 'Registro no encontrado' 
+            });
         }
-    });  
+        else {
+          return res.status(200).json(result.rows);
+            
+        }
+      
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Error al buscar' });
+    }
 };
 
 //endpoint para devolver las interacciones por nombre de tema
 const getInteraccionesByTema = async(req, res) => {
-    const busqueda = req.params.id;
+    try {
+    const busqueda = req.params.tem;
 
     const query = `select id_interaccion, fecha, cant_mensaje, nombre_graba, observacion, duracion_llamada, nombre_usu, nombre_age, nombre_can, nombre_tema from interacciones, usuarios, agencias, canal, temas where (nombre_tema ilike '%${busqueda}%') and interacciones.id_tema = temas.id_tema`;
-
-    pool.query(query,  (err, result)=>{
-        if (err) {
-            console.error(err);
-            res.status(500).json({ error: 'Error al buscar' });
-        } if (result.rows.length === 0) {
-            res.status(404).json({ error: 'Registro no encontrado' });
-        } else {
-            res.json(result.rows);
-        }
-    });  
+    const result = await pool.query(query);
+    if (result.rows.length === 0) {
+        return res.status(404).json({ 
+            error: 'Registro no encontrado' 
+        });
+    }
+    else {
+      return res.status(200).json(result.rows);
+        
+    }
+  
+} catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Error al buscar' });
+}
 };
 
 //endpoint para crear una interaccion
@@ -176,7 +198,7 @@ const createInteracciones = async(req, res) => {
 
         return res.status(200).json({
             interaccion,
-            message: 'interaccion added'
+            message: 'Interaccion agregada correctamente'
         });
 
     } catch (err) {
@@ -212,7 +234,7 @@ const updateInteracciones= async(req, res) => {
 
         return res.json({
             interaccion,
-            message: 'interaccion updated'
+            message: 'Interaccion modificada correctamente'
         });
 
     } catch (err) {
@@ -223,23 +245,22 @@ const updateInteracciones= async(req, res) => {
 };
 
 //endpoint para eliminar una interaccion
-const deleteInteracciones = async(req, res) => {
+const deleteInteracciones=async(req, res) => {
     const { id } = req.params;
+    try {
+       await pool.query('DELETE FROM det_interaccion_motivo WHERE id_interaccion = $1', [id]);
+	// Realizar la lógica de eliminación de la interaccion según el ID proporcionado
+       await pool.query('DELETE FROM interacciones WHERE id_interaccion = $1');
+        
+        return res.json({
+            interaccion,
+            message: 'Interaccion eliminada correctamente'
+        });
 
-  // Realizar la lógica de eliminación de la interaccion según el ID proporcionado
-  const query = 'DELETE FROM interacciones WHERE id_interaccion = $1';
-  const values = [id];
-
-  pool.query(query, values, (err, result) => {
-    if (err) {
-      console.error(err);
-      res.status(500).json({ error: 'Error al eliminar la interaccion' });
-    } else if (result.rowCount === 0) {
-      res.status(404).json({ error: 'Interaccion no encontrada' });
-    } else {
-      res.json({ message: 'Interaccion eliminada correctamente' });
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ error: 'Error al eliminar' });
     }
-  }); 
 };
 
 module.exports = { 

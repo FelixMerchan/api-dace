@@ -1,12 +1,4 @@
-const { Pool } = require('pg');
-
-const pool = new Pool({
-    host: '35.239.172.154',
-    user: 'rootdace',
-    password: 'dace1234',
-    database: 'callcenter',
-    port: '5432'
-});
+const pool = require('../database/db');
 
 //endpoint para devolver todas los canales
 const getCanales = async(req, res) => {
@@ -51,7 +43,7 @@ const createCanal = async(req, res) => {
             res.status(500).json({ error: 'Error al insertar' });
         } else {
             res.json({
-                message: 'canal added'
+                message: 'Canal agregado correctamente'
             });
         }
     }); 
@@ -70,7 +62,7 @@ const updateCanal= async(req, res) => {
             res.status(500).json({ error: 'Error al actualizar' });
         } else {
             res.json({
-                message: 'canal updated'
+                message:  'Canal modificado correctamente'
             });
         }
     }); 

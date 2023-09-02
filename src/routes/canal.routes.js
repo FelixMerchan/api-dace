@@ -3,24 +3,27 @@ const router = Router();
 
 const authMiddleware = require('../authMiddleware');
 
-const {getMotivos,getMotivosByID,getMotivosByCategoria,createMotivos,updateMotivos,deleteMotivos } = require('../controllers/motivos.controller');
+const {getCanales,getCanalByID,createCanal,updateCanal,deleteCanal } = require('../controllers/canal.controller');
 
 /**
  * @swagger
  * components:
  *  schemas:
- *    motivos:
+ *    canal:
  *      type: object
  *      properties:
- *        id_motivo:
+ *        id_canal:
  *          type: integer
- *          description: id del motivo
- *        categoria_moti:
+ *          description: id del canal
+ *        nombre_can:
  *          type: string
- *          description: categoria del motivo
- *        descripcion_moti:
+ *          description: nombre del canal
+ *        descripcion_can:
  *          type: string
- *          description: descripcion del motivo
+ *          description: descripcion del canal
+ *        extension_can:
+ *          type: string
+ *          description: extension del canal
  *  securitySchemes:
  *    BearerAuth:
  *      type: http
@@ -28,16 +31,16 @@ const {getMotivos,getMotivosByID,getMotivosByCategoria,createMotivos,updateMotiv
  *      bearerFormat: JWT
  */
 
-//rutas de endpoint para motivos
+//rutas de endpoint para canal
 /**
  * @swagger
  * paths:
- *  /motivos:
+ *  /canal:
  *    get:
- *      summary: Encontrar todas las motivos
- *      description: Devuelve todas las motivos
+ *      summary: Encontrar todos los canal
+ *      description: Devuelve todos los canal
  *      tags: 
- *        - motivos
+ *        - canal
  *      security:
  *        - BearerAuth: []
  *      responses:
@@ -48,20 +51,20 @@ const {getMotivos,getMotivosByID,getMotivosByCategoria,createMotivos,updateMotiv
  *              schema:
  *                type: array
  *                items:
- *                  $ref: '#/components/schemas/motivos'
+ *                  $ref: '#/components/schemas/canal'
  *        500:
  *          description: Error
  */
-router.get('/motivos', authMiddleware, getMotivos);
+router.get('/canal', authMiddleware, getCanales);
 
 /**
  * @swagger
- *  /motivos/{id}:
+ *  /canal/{id}:
  *    get: 
- *      summary: Encontrar motivo por Id
- *      description: Devuelve un solo motivo
+ *      summary: Encontrar canal por Id
+ *      description: Devuelve un solo canal
  *      tags:
- *        - motivos
+ *        - canal
  *      security:
  *        - BearerAuth: []
  *      parameters:
@@ -71,7 +74,7 @@ router.get('/motivos', authMiddleware, getMotivos);
  *            type: integer
  *            format: int64
  *          required: true
- *          description: id de motivo a devolver
+ *          description: id de canal a devolver
  *      responses:
  *        200:
  *          description: Operación exitosa
@@ -79,72 +82,42 @@ router.get('/motivos', authMiddleware, getMotivos);
  *            application/json:
  *              schema:
  *                type: object
- *                $ref: '#/components/schemas/motivos'
+ *                $ref: '#/components/schemas/canal'
  *        404:
  *          description: Registro no encontrado
  *        500:
  *          description: Error
  *          
  */
-router.get('/motivos/:id', authMiddleware, getMotivosByID);
+router.get('/canal/:id', authMiddleware, getCanalByID);
 
 /**
  * @swagger
- *  /motivos/category/{name}:
- *    get: 
- *      summary: Encontrar motivo por el nombre de categoria
- *      description: Devuelve un solo motivo
- *      tags:
- *        - motivos
- *      security:
- *        - BearerAuth: []
- *      parameters:
- *        - in: path
- *          name: name
- *          schema:
- *            type: string
- *          required: true
- *          description: nombre de categoria a devolver
- *      responses:
- *        200:
- *          description: Operación exitosa
- *          content:
- *            application/json:
- *              schema:
- *                type: object
- *                $ref: '#/components/schemas/motivos'
- *        404:
- *          description: Registro no encontrado
- *        500:
- *          description: Error
- *          
- */
-router.get('/motivos/category/:name', authMiddleware, getMotivosByCategoria);
-
-/**
- * @swagger
- *  /motivos:
+ *  /canal:
  *    post: 
- *      summary: Agregar un nuevo motivo
- *      description: Añade un nuevo motivo
+ *      summary: Agregar un nuevo canal
+ *      description: Añade un nuevo canal
  *      tags:
- *        - motivos
+ *        - canal
  *      security:
  *        - BearerAuth: []
  *      requestBody:
- *        description: Crear un nuevo motivo
+ *        description: Crear un nuevo canal
  *        required: true
  *        content:
  *          applitacion/json:
  *            schema:
  *              type: object
  *              properties:
- *                  categoria_moti:
+ *                  nombre_can:
  *                      type: string
- *                      description: categoria del motivo
- *                  descripcion_moti:
+ *                      description: nombre del canal
+ *                  descripcion_can:
  *                      type: string
- *                      description: descripcion del motivo
+ *                      description: descripcion del canal
+ *                  extension_can:
+ *                      type: string
+ *                      description: extension del canal
  *      responses:
  *        200:
  *          description: Operación exitosa
@@ -154,49 +127,49 @@ router.get('/motivos/category/:name', authMiddleware, getMotivosByCategoria);
  *          description: Error
  *          
  */
-router.post('/motivos', authMiddleware, createMotivos);
+router.post('/canal', authMiddleware, createCanal);
 
 /**
  * @swagger
- *  /motivos:
+ *  /canal:
  *    put: 
- *      summary: Actualizar un motivo existente
- *      description: Actualizar un motivo existente por ID
+ *      summary: Actualizar un canal existente
+ *      description: Actualizar un canal existente por ID
  *      tags:
- *        - motivos
+ *        - canal
  *      security:
  *        - BearerAuth: []
  *      requestBody:
- *        description: Actualizar un motivo existente
+ *        description: Actualizar un canal existente
  *        required: true
  *        content:
  *          applitacion/json:
  *            schema:
  *              type: object
- *              $ref: '#/components/schemas/motivos'
+ *              $ref: '#/components/schemas/canal'
  *      responses:
  *        200:
  *          description: Operación exitosa
  *        400:
  *          description: ID proporcionado no válido
  *        404:
- *          description: motivo no encontrada
+ *          description: canal no encontrada
  *        405:
  *          description: Excepción de validación
  *        500:
  *          description: Error
  *          
  */
-router.put('/motivos', authMiddleware, updateMotivos);
+router.put('/canal', authMiddleware, updateCanal);
 
 /**
  * @swagger
- *  /motivos:
+ *  /canal:
  *    delete: 
- *      summary: Eliminar un motivo existente
- *      description: Eliminar un motivo existente por ID
+ *      summary: Eliminar un canal existente
+ *      description: Eliminar un canal existente por ID
  *      tags:
- *        - motivos
+ *        - canal
  *      security:
  *        - BearerAuth: []
  *      parameters:
@@ -206,20 +179,20 @@ router.put('/motivos', authMiddleware, updateMotivos);
  *            type: integer
  *            format: int64
  *          required: true
- *          description: id de motivo a eliminar
+ *          description: id de canal a eliminar
  *      responses:
  *        200:
  *          description: Operación exitosa
  *        400:
  *          description: ID proporcionado no válido
  *        404:
- *          description: motivo no encontrada
+ *          description: canal no encontrada
  *        405:
  *          description: Excepción de validación
  *        500:
  *          description: Error
  *          
  */
-router.delete('motivos/:id', authMiddleware, deleteMotivos);
+router.delete('canal/:id', authMiddleware, deleteCanal);
 
 module.exports = router;

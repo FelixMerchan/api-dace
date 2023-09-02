@@ -1,12 +1,4 @@
-const { Pool } = require('pg');
-
-const pool = new Pool({
-    host: '35.239.172.154',
-    user: 'rootdace',
-    password: 'dace1234',
-    database: 'callcenter',
-    port: '5432'
-});
+const pool = require('../database/db');
 
 //endpoint para devolver todas las agencias
 const getAgencias = async(req, res) => {
@@ -40,7 +32,7 @@ const getAgenciasByID = async(req, res) => {
 
 //endpoint para devolver las agencias por nombre de ciudad o por provincia
 const getAgenciasByCity = async(req, res) => {
-    const busqueda = req.params.id;
+    const busqueda = req.params.name;
 
     const query = `select id_agencia, nombre_age, telefono_age, direccion_age, nombre_ciu from agencias, ciudades where (nombre_ciu ilike '%${busqueda}%' or provincia ilike '%${busqueda}%') and agencias.id_ciudad = ciudades.id_ciudad`;
 
@@ -69,7 +61,7 @@ const createAgencias = async(req, res) => {
             res.status(500).json({ error: 'Error al insertar' });
         } else {
             res.json({
-                message: 'agencia added'
+                message: 'Agencia agregada correctamente'
             });
         }
     }); 
@@ -88,7 +80,7 @@ const updateAgencias= async(req, res) => {
             res.status(500).json({ error: 'Error al actualizar' });
         } else {
             res.json({
-                message: 'ciudad updated'
+                message: 'Agencia modificada correctamente'
             });
         }
     }); 
@@ -96,8 +88,7 @@ const updateAgencias= async(req, res) => {
 
 //endpoint para eliminar una agencia
 const deleteAgencias = async(req, res) => {
-    const { id } = req.params;
-
+    const {id} = req.params;
   // Realizar la lógica de eliminación de la agencia según el ID proporcionado
   const query = 'DELETE FROM agencias WHERE id_agencia = $1';
   const values = [id];
@@ -109,7 +100,7 @@ const deleteAgencias = async(req, res) => {
     } else if (result.rowCount === 0) {
       res.status(404).json({ error: 'Agencia no encontrada' });
     } else {
-      res.json({ message: 'Agencia eliminada correctamente' });
+      res.json({ message: 'Agencia eliminada correctamente ' });
     }
   }); 
 };

@@ -1,12 +1,4 @@
-const { Pool } = require('pg');
-
-const pool = new Pool({
-    host: '35.239.172.154',
-    user: 'rootdace',
-    password: 'dace1234',
-    database: 'callcenter',
-    port: '5432'
-});
+const pool = require('../database/db');
 
 //endpoint para devolver todas las ciudades
 const getCiudades = async(req, res) => {
@@ -69,7 +61,7 @@ const createCiudades = async(req, res) => {
             res.status(500).json({ error: 'Error al insertar' });
         } else {
             res.json({
-                message: 'ciudad added'
+                message: 'Ciudad agregada correctamente'
             });
         }
     }); 
@@ -88,7 +80,7 @@ const updateCiudades = async(req, res) => {
             res.status(500).json({ error: 'Error al actualizar' });
         } else {
             res.json({
-                message: 'ciudad updated'
+                message: 'Ciudad modificada correctamente'
             });
         }
     }); 

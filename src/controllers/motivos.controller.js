@@ -1,12 +1,4 @@
-const { Pool } = require('pg');
-
-const pool = new Pool({
-    host: '35.239.172.154',
-    user: 'rootdace',
-    password: 'dace1234',
-    database: 'callcenter',
-    port: '5432'
-});
+const pool = require('../database/db');
 
 //endpoint para devolver todas los motivos
 const getMotivos = async(req, res) => {
@@ -41,7 +33,7 @@ const getMotivosByID = async(req, res) => {
 
 //endpoint para devolver los motivos por categoria
 const getMotivosByCategoria = async(req, res) => {
-    const busqueda = req.params.id;
+    const busqueda = req.params.name;
 
     const query = `select id_motivo, categoria_moti, descripcion_moti from motivos where (categoria_moti ilike '%${busqueda}%')`;
 
@@ -71,7 +63,7 @@ const createMotivos = async(req, res) => {
             res.status(500).json({ error: 'Error al insertar' });
         } else {
             res.json({
-                message: 'motivo added'
+                message: 'Motivo agregado correctamente'
             });
         }
     });
@@ -90,7 +82,7 @@ const updateMotivos = async(req, res) => {
             res.status(500).json({ error: 'Error al actualizar' });
         } else {
             res.json({
-                message: 'motivo updated'
+                message: 'Motivo modificado correctamente'
             });
         }
     });

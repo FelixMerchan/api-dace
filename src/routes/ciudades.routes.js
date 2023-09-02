@@ -14,13 +14,13 @@ const { getCiudades, createCiudades, getCiudadesByID, getCiudadesByCity, updateC
  *      properties:
  *        id_ciudad:
  *          type: integer
- *          descripcion: id de la ciudad
+ *          description: id de la ciudad
  *        nombre_ciu:
  *          type: string
- *          descripcion: nombre de la ciudad
+ *          description: nombre de la ciudad
  *        provincia:
  *          type: string
- *          descripcion: nombre de la provincia
+ *          description: nombre de la provincia
  * 
  *  securitySchemes:
  *    BearerAuth:
@@ -132,10 +132,10 @@ router.get('/ciudades/city/:name', authMiddleware, getCiudadesByCity);
  *              properties:
  *                nombre_ciu:
  *                  type: string
- *                  descripcion: nombre de la ciudad
+ *                  description: nombre de la ciudad
  *                provincia:
  *                  type: string
- *                  descripcion: nombre de la provincia
+ *                  description: nombre de la provincia
  *      responses:
  *        200:
  *          description: Operación exitosa

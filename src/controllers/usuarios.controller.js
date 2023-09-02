@@ -1,14 +1,8 @@
-const { Pool } = require('pg');
+const pool = require('../database/db');
 const bcrypt = require('bcryptjs');
 const { generarJWT } = require('../helpers/jwt');
 
-const pool = new Pool({
-    host: '35.239.172.154',
-    user: 'rootdace',
-    password: 'dace1234',
-    database: 'callcenter',
-    port: '5432'
-});
+
 
 //endpoint para devolver todas los usuarios
 const getUsuarios = async(req, res) => {
@@ -43,7 +37,7 @@ const getUsuariosByID = async(req, res) => {
 
 //endpoint para devolver los usuarios por cedula, nombre, user
 const getUsuariosByCed = async(req, res) => {
-    const busqueda = req.params.id;
+    const busqueda = req.params.ced;
 
     const query = `select id_usuario, cedula_usu, nombre_usu, email_usu, user, password from usuarios where (cedula_usu ilike '%${busqueda}%' OR nombre_usu ilike '%${busqueda}%' OR user ilike '%${busqueda}%')`;
 
@@ -93,7 +87,7 @@ const createUsuarios = async(req, res) => {
             const token = await generarJWT(usuario.id_usuario);
             
             res.json({
-                message: 'usuario added',
+                message: 'Usuario agregado correctamente',
                 usuario,
                 token
             });
@@ -114,7 +108,7 @@ const updateUsuarios = async(req, res) => {
             res.status(500).json({ error: 'Error al actualizar' });
         } else {
             res.json({
-                message: 'usuario updated'
+                message: 'Usuario modificado correctamente'
             });
         }
     });
