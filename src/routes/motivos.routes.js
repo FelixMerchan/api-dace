@@ -135,7 +135,7 @@ router.get('/motivos/category/:name', authMiddleware, getMotivosByCategoria);
  *        description: Crear un nuevo motivo
  *        required: true
  *        content:
- *          applitacion/json:
+ *          application/json:
  *            schema:
  *              type: object
  *              properties:
@@ -170,7 +170,7 @@ router.post('/motivos', authMiddleware, createMotivos);
  *        description: Actualizar un motivo existente
  *        required: true
  *        content:
- *          applitacion/json:
+ *          application/json:
  *            schema:
  *              type: object
  *              $ref: '#/components/schemas/motivos'

@@ -126,7 +126,7 @@ router.get('/ciudades/city/:name', authMiddleware, getCiudadesByCity);
  *        description: Crear una nueva ciudad
  *        required: true
  *        content:
- *          applitacion/json:
+ *          application/json:
  *            schema:
  *              type: object
  *              properties:
@@ -161,7 +161,7 @@ router.post('/ciudades', authMiddleware, createCiudades);
  *        description: Actualizar una ciudad existente
  *        required: true
  *        content:
- *          applitacion/json:
+ *          application/json:
  *            schema:
  *              type: object
  *              $ref: '#/components/schemas/ciudades'

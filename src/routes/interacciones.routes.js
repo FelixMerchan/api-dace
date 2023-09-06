@@ -241,7 +241,7 @@ router.get('/interacciones/tema/:tem', authMiddleware, getInteraccionesByTema);
  *        description: Crear una nueva interaccion
  *        required: true
  *        content:
- *          applitacion/json:
+ *          application/json:
  *            schema:
  *              type: object
  *              properties:
@@ -300,7 +300,7 @@ router.post('/interacciones', authMiddleware, createInteracciones);
  *        description: Actualizar una interaccion existente
  *        required: true
  *        content:
- *          applitacion/json:
+ *          application/json:
  *            schema:
  *              type: object
  *              $ref: '#/components/schemas/interacciones'

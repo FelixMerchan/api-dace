@@ -144,7 +144,7 @@ router.get('/usuarios/cedula/:ced', authMiddleware, getUsuariosByCed);
  *        description: Crear un nuevo usuario
  *        required: true
  *        content:
- *          applitacion/json:
+ *          application/json:
  *            schema:
  *              type: object
  *              properties:
@@ -188,7 +188,7 @@ router.post('/usuarios', authMiddleware, createUsuarios);
  *        description: Actualizar un usuario existente
  *        required: true
  *        content:
- *          applitacion/json:
+ *          application/json:
  *            schema:
  *              type: object
  *              $ref: '#/components/schemas/usuarios'

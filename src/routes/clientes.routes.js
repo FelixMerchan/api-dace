@@ -143,7 +143,7 @@ router.get('/clientes/cedula/:cedula', authMiddleware, getClientesByCedula);
  *        description: Crear un nuevo cliente
  *        required: true
  *        content:
- *          applitacion/json:
+ *          application/json:
  *            schema:
  *              type: object
  *              properties:
@@ -196,7 +196,7 @@ router.post('/clientes', authMiddleware, createClientes);
  *        description: Actualizar un cliente existente
  *        required: true
  *        content:
- *          applitacion/json:
+ *          application/json:
  *            schema:
  *              type: object
  *              $ref: '#/components/schemas/clientes'

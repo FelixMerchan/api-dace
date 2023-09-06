@@ -23,10 +23,10 @@ const { getAgencias,getAgenciasByID,getAgenciasByCity,createAgencias,updateAgenc
  *          description: telefono de la agencia
  *        direccion_age:
  *          type: string
- *          description: telefono de la agencia
+ *          description: direccion de la agencia
  *        id_ciudad:
  *          type: integer
- *          description: id de la ciudad 
+ *          description: id de la ciudad
  *  securitySchemes:
  *    BearerAuth:
  *      type: http
@@ -145,18 +145,18 @@ router.get('/agencias/city/:name', authMiddleware, getAgenciasByCity);
  *            schema:
  *              type: object
  *              properties:
- *                  nombre_age:
- *                     type: string
- *                      description: nombre de la agencia
- *                  telefono_age:
- *                      type: string
- *                      description: telefono de la agencia
- *                  direccion_age:
- *                      type: string
- *                      description: telefono de la agencia
- *                  id_ciudad:
- *                      type: integer
- *                      description: id de la ciudad 
+ *                nombre_age:
+ *                  type: string
+ *                  description: nombre de la agencia
+ *                telefono_age:
+ *                  type: string
+ *                  description: telefono de la agencia
+ *                direccion_age:
+ *                  type: string
+ *                  description: direccion de la agencia
+ *                id_ciudad:
+ *                  type: integer
+ *                  description: id de la ciudad 
  *      responses:
  *        200:
  *          description: Operación exitosa
@@ -182,7 +182,7 @@ router.post('/agencias', authMiddleware, createAgencias);
  *        description: Actualizar una agencia existente
  *        required: true
  *        content:
- *          applitacion/json:
+ *          application/json:
  *            schema:
  *              type: object
  *              $ref: '#/components/schemas/agencias'

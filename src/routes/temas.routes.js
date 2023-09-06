@@ -101,7 +101,7 @@ router.get('/temas/:id', authMiddleware, getTemasByID);
  *        description: Crear un nuevo tema
  *        required: true
  *        content:
- *          applitacion/json:
+ *          application/json:
  *            schema:
  *              type: object
  *              properties:
@@ -136,7 +136,7 @@ router.post('/temas', authMiddleware, createTemas);
  *        description: Actualizar un tema existente
  *        required: true
  *        content:
- *          applitacion/json:
+ *          application/json:
  *            schema:
  *              type: object
  *              $ref: '#/components/schemas/temas'
