@@ -220,6 +220,6 @@ router.put('/motivos', authMiddleware, updateMotivos);
  *          description: Error
  *          
  */
-router.delete('motivos/:id', authMiddleware, deleteMotivos);
+router.delete('/motivos/:id', authMiddleware, deleteMotivos);
 
 module.exports = router;

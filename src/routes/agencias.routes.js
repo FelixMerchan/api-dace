@@ -160,7 +160,7 @@ router.get('/agencias/city/:name', authMiddleware, getAgenciasByCity);
  *      responses:
  *        200:
  *          description: Operación exitosa
- *        405:
+ *        406:
  *          description: Entrada no válida
  *        500:
  *          description: Error
@@ -193,7 +193,7 @@ router.post('/agencias', authMiddleware, createAgencias);
  *          description: ID proporcionado no válido
  *        404:
  *          description: agencia no encontrada
- *        405:
+ *        406:
  *          description: Excepción de validación
  *        500:
  *          description: Error
@@ -232,6 +232,6 @@ router.put('/agencias', authMiddleware, updateAgencias);
  *          description: Error
  *          
  */
-router.delete('agencias/:id', authMiddleware, deleteAgencias);
+router.delete('/agencias/:id', authMiddleware, deleteAgencias);
 
 module.exports = router;

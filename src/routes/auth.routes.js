@@ -30,7 +30,12 @@ const authMiddleware = require('../authMiddleware');
  *    responses:
  *      200:
  *        description: Operación exitosa
- *          
+ *      400:
+ *        description: Credenciales invalidadas
+ *      404:
+ *        description: Usuario no encontrado
+ *      500:
+ *         description: Error
  */
 router.post('/auth/login', login);
 router.get('/auth/renew', authMiddleware, renewToken);

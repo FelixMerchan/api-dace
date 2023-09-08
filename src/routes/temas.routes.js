@@ -186,6 +186,6 @@ router.put('/temas', authMiddleware, updateTemas);
  *          description: Error
  *          
  */
-router.delete('temas/:id', authMiddleware, deleteTemas);
+router.delete('/temas/:id', authMiddleware, deleteTemas);
 
 module.exports = router;

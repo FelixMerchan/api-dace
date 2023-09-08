@@ -19,7 +19,7 @@ const getUsuarios = async(req, res) => {
 const getUsuariosByID = async(req, res) => {
     const { id } = req.params;
 
-    const query = `select id_usuario, cedula_usu, nombre_usu, email_usu, user, password from usuarios`;
+    const query = `select id_usuario, cedula_usu, nombre_usu, email_usu, user, password from usuarios where id_usuario=$1`;
     const values = [id];
 
     pool.query(query, values, (err, result) => {
@@ -97,10 +97,10 @@ const createUsuarios = async(req, res) => {
 
 //endpoint para modificar un usuario
 const updateUsuarios = async(req, res) => {
-    const { id_usuario, cedula_usua, nombre_usua, email_usua, user_usua, password_usua } = req.body;
+    const { id_usuario, cedula_usu, nombre_usu, email_usu, user, password } = req.body;
 
-    const query = 'UPDATE usuarios SET cedula_usu = $2, nombre_usu = $3,email_usu = $4, user = $5,password = $6 WHERE id_usuario = $1';
-    const values = [id_usuario, cedula_usua, nombre_usua, email_usua, user_usua, password_usua];
+    const query = 'UPDATE usuarios SET cedula_usu = $2, nombre_usu = $3, email_usu = $4, "user" = $5, password = $6 WHERE id_usuario = $1';
+    const values = [id_usuario, cedula_usu, nombre_usu, email_usu, user, password];
 
     pool.query(query, values, (err) => {
         if (err) {

@@ -121,7 +121,7 @@ router.get('/canal/:id', authMiddleware, getCanalByID);
  *      responses:
  *        200:
  *          description: Operación exitosa
- *        405:
+ *        406:
  *          description: Entrada no válida
  *        500:
  *          description: Error
@@ -154,7 +154,7 @@ router.post('/canal', authMiddleware, createCanal);
  *          description: ID proporcionado no válido
  *        404:
  *          description: canal no encontrada
- *        405:
+ *        406:
  *          description: Excepción de validación
  *        500:
  *          description: Error
@@ -193,6 +193,6 @@ router.put('/canal', authMiddleware, updateCanal);
  *          description: Error
  *          
  */
-router.delete('canal/:id', authMiddleware, deleteCanal);
+router.delete('/canal/:id', authMiddleware, deleteCanal);
 
 module.exports = router;

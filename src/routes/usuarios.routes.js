@@ -238,6 +238,6 @@ router.put('/usuarios', authMiddleware, updateUsuarios);
  *          description: Error
  *          
  */
-router.delete('usuarios/:id', authMiddleware, deleteUsuarios);
+router.delete('/usuarios/:id', authMiddleware, deleteUsuarios);
 
 module.exports = router;

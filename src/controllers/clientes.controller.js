@@ -104,7 +104,11 @@ const updateClientes = async(req, res) => {
 };
 
 const deleteClientes = async(req, res) => {
+
+    
     const { id } = req.params;
+
+    console.log(req.params);
 
     const query = 'DELETE FROM clientes WHERE id_cliente = $1';
     const values = [ id ];

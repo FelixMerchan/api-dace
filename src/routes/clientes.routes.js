@@ -246,6 +246,6 @@ router.put('/clientes', authMiddleware, updateClientes);
  *          description: Error
  *          
  */
-router.delete('clientes/:id', authMiddleware, deleteClientes);
+router.delete('/clientes/:id', authMiddleware, deleteClientes);
 
 module.exports = router;

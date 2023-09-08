@@ -350,6 +350,6 @@ router.put('/interacciones', authMiddleware, updateInteracciones);
  *          description: Error
  *          
  */
-router.delete('interacciones/:id', authMiddleware, deleteInteracciones);
+router.delete('/interacciones/:id', authMiddleware, deleteInteracciones);
 
 module.exports = router;

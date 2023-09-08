@@ -211,6 +211,6 @@ router.put('/ciudades', authMiddleware, updateCiudades);
  *          description: Error
  *          
  */
-router.delete('ciudades/:id', authMiddleware, deleteCiudades);
+router.delete('/ciudades/:id', authMiddleware, deleteCiudades);
 
 module.exports = router;

@@ -11,7 +11,7 @@ const getCanales = async(req, res) => {
     });
 };
 
-//endpoint para devolver las agencias por un ID determinado
+//endpoint para devolver los canales por un ID determinado
 const getCanalByID = async(req, res) => {
     const {id} = req.params;
 
@@ -81,9 +81,9 @@ const deleteCanal = async(req, res) => {
       console.error(err);
       res.status(500).json({ error: 'Error al eliminar la canal' });
     } else if (result.rowCount === 0) {
-      res.status(404).json({ error: 'Canal no encontrada' });
+      res.status(404).json({ error: 'Canal no encontrado' });
     } else {
-      res.json({ message: 'Canal eliminada correctamente' });
+      res.json({ message: 'Canal eliminado correctamente' });
     }
   }); 
 };

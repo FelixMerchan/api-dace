@@ -23,7 +23,7 @@ const login = async(req, res = response) => {
     if( !validPassword ){
       return res.status(400).json({
         success: false,
-        message: 'Credenciales invidalidas'
+        message: 'Credenciales invalidadas'
       });
     }
 
